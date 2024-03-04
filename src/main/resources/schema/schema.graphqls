@@ -1,0 +1,32 @@
+type Query {
+  shows(titleFilter: String): [Show]
+  diagnosis: TechDetail
+  kubeinfo: KubeAmbassador
+}
+
+type Mutation {
+  addShow(input: ShowInput): Show
+}
+
+input ShowInput {
+  title: String
+  platform: String
+  releaseYear: Int
+}
+type Show {
+  title: String
+  platform: String
+  releaseYear: Int
+}
+
+type KubeAmbassador {
+  token: String
+  namespace: String
+  cert: String
+}
+
+type TechDetail {
+  hostname: String
+  podIp: String
+  podName: String
+}
