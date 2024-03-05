@@ -9,6 +9,12 @@ trigger:
 pool: Default
 
 steps:
-- script: jf rt ping
-  displayName: 'Artifactory ping'
+- script: |
+    jf rt ping
+    jf mvnc --repo-resolve-releases=dro-backend-maven-virtual \
+            --repo-deploy-releases=dro-backend-maven-virtual \
+            --repo-resolve-snapshots=dro-backend-maven-virtual \
+            --repo-deploy-snapshots=dro-backend-maven-virtual
+    
+displayName: 'Artifactory config'
 
