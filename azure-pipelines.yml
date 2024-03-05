@@ -16,5 +16,5 @@ steps:
             --repo-resolve-snapshots=dro-backend-maven-virtual \
             --repo-deploy-snapshots=dro-backend-maven-virtual
     
-displayName: 'Artifactory config'
+  displayName: 'Artifactory config'
 
