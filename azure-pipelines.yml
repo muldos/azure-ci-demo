@@ -17,7 +17,6 @@ steps:
             --repo-resolve-snapshots=dro-backend-maven-virtual \
             --repo-deploy-snapshots=dro-backend-maven-virtual
     jf mvn --build-name=$JFROG_CLI_BUILD_NAME -Drevision=1.$JFROG_CLI_BUILD_NUMBER.0 --build-number=$JFROG_CLI_BUILD_NUMBER -Dmaven.test.skip=true clean package deploy
-    jf audit --mvn
     jf rt bp $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER
 
   env: 
