@@ -9,6 +9,6 @@ trigger:
 pool: Default
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: jf rt ping
+  displayName: 'Artifactory ping'
 
