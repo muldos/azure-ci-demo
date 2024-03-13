@@ -6,19 +6,22 @@
 trigger:
 - main
 
-pool: Default
+pool: 
+  vmImage: ubuntu-latest
 
 steps:
-- script: |
-    jf rt ping
-    jf rt bce $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER
-    jf mvnc --repo-resolve-releases=dro-backend-maven-virtual \
+- task: JfrogCliV2@1
+  inputs:
+    jfrogPlatformConnection: 'JFrog Platform V2'
+    command: |
+      jf rt ping
+      jf rt bce $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER
+      jf mvnc --repo-resolve-releases=dro-backend-maven-virtual \
             --repo-deploy-releases=dro-backend-maven-virtual \
             --repo-resolve-snapshots=dro-backend-maven-virtual \
             --repo-deploy-snapshots=dro-backend-maven-virtual
-    jf mvn --build-name=$JFROG_CLI_BUILD_NAME -Drevision=1.$BUILD_ID.0 --build-number=$JFROG_CLI_BUILD_NUMBER -Dmaven.test.skip=true clean package deploy
-    jf rt bp $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER --build-url=https://dev.azure.com/davidro0580/DevopsDemo/_build/results?buildId=$BUILD_ID
-
+      jf mvn --build-name=$JFROG_CLI_BUILD_NAME -Drevision=1.$BUILD_ID.0 --build-number=$JFROG_CLI_BUILD_NUMBER -Dmaven.test.skip=true clean package deploy
+      jf rt bp $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER --build-url=https://dev.azure.com/davidro0580/DevopsDemo/_build/results?buildId=$BUILD_ID
   env: 
     JFROG_CLI_BUILD_PROJECT: dro
     JFROG_CLI_BUILD_NAME: dro-azdevops-demobuild
@@ -26,4 +29,3 @@ steps:
     BUILD_ID: $(Build.BuildId)
   
   displayName: 'Artifactory config'
-
