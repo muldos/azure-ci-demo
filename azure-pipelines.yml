@@ -12,7 +12,7 @@ pool:
 steps:
 - task: JfrogCliV2@1
   inputs:
-    jfrogPlatformConnection: 'JFrog Platform V2'
+    jfrogPlatformConnection: 'Soleng Saas CLI'
     command: |
       jf rt ping
       jf rt bce $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER
