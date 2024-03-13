@@ -15,14 +15,11 @@ steps:
     jfrogPlatformConnection: 'Soleng Saas CLI'
     command: |
       jf rt ping
-      jf rt bce $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER
+      jf rt bce $(Build.DefinitionName) $(Build.BuildNumber)
       jf mvnc --repo-resolve-releases=dro-backend-maven-virtual --repo-deploy-releases=dro-backend-maven-virtual --repo-resolve-snapshots=dro-backend-maven-virtual --repo-deploy-snapshots=dro-backend-maven-virtual
-      jf mvn --build-name=$JFROG_CLI_BUILD_NAME -Drevision=1.$BUILD_ID.0 --build-number=$JFROG_CLI_BUILD_NUMBER -Dmaven.test.skip=true clean package deploy
-      jf rt bp $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER --build-url=https://dev.azure.com/davidro0580/DevopsDemo/_build/results?buildId=$BUILD_ID
+      jf mvn --build-name=$(Build.DefinitionName) -Drevision=1.$(Build.BuildId).0 --build-number=$(Build.BuildNumber) -Dmaven.test.skip=true clean package deploy
+      jf rt bp $(Build.DefinitionName) $(Build.BuildNumber) --build-url=https://dev.azure.com/davidro0580/DevopsDemo/_build/results?buildId=$(Build.BuildId)
+      jf audit --mvn
   env: 
     JFROG_CLI_BUILD_PROJECT: dro
-    JFROG_CLI_BUILD_NAME: dro-azdevops-demobuild
-    JFROG_CLI_BUILD_NUMBER: $(Build.BuildNumber)
-    BUILD_ID: $(Build.BuildId)
-  
   displayName: 'Artifactory config'
