@@ -15,7 +15,7 @@ steps:
     jfrogPlatformConnection: 'Soleng Saas CLI'
     command: |
       jf rt ping
-      jf bce $(Build.DefinitionName) $(Build.BuildNumber)
+      jf rt bce $(Build.DefinitionName) $(Build.BuildNumber)
       jf mvnc --repo-resolve-releases=dro-backend-maven-virtual --repo-deploy-releases=dro-backend-maven-virtual --repo-resolve-snapshots=dro-backend-maven-virtual --repo-deploy-snapshots=dro-backend-maven-virtual
       jf mvn --build-name=$(Build.DefinitionName) -Drevision=1.$(Build.BuildId).0 --build-number=$(Build.BuildNumber) -Dmaven.test.skip=true clean package deploy
       jf audit --mvn
